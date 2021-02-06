@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:task2/Auth/Ui/home_page.dart';
 import 'package:task2/Auth/Widgets/button_start.dart';
 import 'package:task2/Auth/Widgets/register_logo.dart';
-
-import 'information.dart';
 
 class pincode extends StatefulWidget {
   @override
@@ -90,7 +89,7 @@ class _pincodeState extends State<pincode> {
             child: button_start("تأكيد"),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (_) {
-                return information();
+                return home_page();
               }));
             },
           ),

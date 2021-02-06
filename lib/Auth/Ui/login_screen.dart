@@ -14,6 +14,7 @@ class login_screen extends StatefulWidget {
 }
 
 class _login_screenState extends State<login_screen> {
+  var _formkey = GlobalKey<FormState>();
   bool ishiden = false;
   TextEditingController phone_controller;
   TextEditingController Password_controller;
@@ -27,93 +28,109 @@ class _login_screenState extends State<login_screen> {
             head_login(),
             SizedBox(height: 50),
             Form(
+                key: _formkey,
                 child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: TextFormField(
-                    keyboardType: TextInputType.phone,
-                    controller: phone_controller,
-                    textAlign: TextAlign.right,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "أدخل رقم التلفون",
-                      suffixIcon: Icon(Icons.phone, color: Colors.white),
-                      prefixIcon: CountryCodePicker(
-                        favorite: ['+02', 'EG'],
-                        onChanged: (value) {
-                          setState(() {
-                            pincountry = value;
-                          });
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: TextFormField(
+                        keyboardType: TextInputType.phone,
+                        controller: phone_controller,
+                        textAlign: TextAlign.right,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "أدخل رقم التلفون",
+                          suffixIcon: Icon(Icons.phone, color: Colors.white),
+                          prefixIcon: CountryCodePicker(
+                            favorite: ['+02', 'EG'],
+                            onChanged: (value) {
+                              setState(() {
+                                pincountry = value;
+                              });
+                            },
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'من فضلك أدخل رقم التلفون';
+                          }
+                          return null;
                         },
                       ),
                     ),
-                  ),
-                ),
-                Container(
-                  margin:
-                      EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: TextFormField(
-                    textAlign: TextAlign.right,
-                    controller: Password_controller,
-                    obscureText: ishiden,
-                    decoration: InputDecoration(
-                      hintText: "أدخل الرقم السرى",
-                      suffixIcon: Icon(
-                        Icons.lock_rounded,
-                        color: Colors.white,
+                    Container(
+                      margin: EdgeInsets.only(
+                          top: 15, left: 15, right: 15, bottom: 5),
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      prefixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            ishiden = !ishiden;
-                          });
+                      child: TextFormField(
+                        textAlign: TextAlign.right,
+                        controller: Password_controller,
+                        obscureText: ishiden,
+                        decoration: InputDecoration(
+                          hintText: "أدخل كلمة السر",
+                          suffixIcon: Icon(
+                            Icons.lock_rounded,
+                            color: Colors.white,
+                          ),
+                          prefixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                ishiden = !ishiden;
+                              });
+                            },
+                            icon: Icon(
+                              ishiden ? Icons.visibility_off : Icons.visibility,
+                              color: Colors.white,
+                            ),
+                          ),
+                          enabledBorder: InputBorder.none,
+                          border: InputBorder.none,
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'من فضلك أدخل كلمة السر';
+                          }
+                          return null;
                         },
-                        icon: Icon(
-                          ishiden ? Icons.visibility_off : Icons.visibility,
-                          color: Colors.white,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) {
+                          return send_phone();
+                        }));
+                      },
+                      child: Container(
+                        alignment: Alignment.topLeft,
+                        padding: EdgeInsets.only(left: 33),
+                        child: Text(
+                          "!هل نسيت كلمة السر؟",
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
-                      enabledBorder: InputBorder.none,
-                      border: InputBorder.none,
                     ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return send_phone();
-                    }));
-                  },
-                  child: Container(
-                    alignment: Alignment.topLeft,
-                    padding: EdgeInsets.only(left: 33),
-                    child: Text(
-                      "!هل نسيت كلمة السر؟",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    SizedBox(
+                      height: 15,
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                InkWell(
-                    child: button_start("تسجيل"),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (_) {
-                        return home_page();
-                      }));
-                    }),
-              ],
-            )),
+                    InkWell(
+                        child: button_start("دخول"),
+                        onTap: () {
+                          if (_formkey.currentState.validate()) {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (_) {
+                              return home_page();
+                            }));
+                          }
+                        }),
+                  ],
+                )),
             SizedBox(
               height: 40,
             ),

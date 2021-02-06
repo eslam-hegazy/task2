@@ -4,7 +4,7 @@ class head_login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.35,
+      height: MediaQuery.of(context).size.height * 0.40,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: Color(0xFF0E172D),

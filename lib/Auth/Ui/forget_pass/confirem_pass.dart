@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:task2/Auth/Widgets/button_start.dart';
 import 'package:task2/Auth/Widgets/register_logo.dart';
-import 'package:task2/Auth/Widgets/textfield.dart';
-
 import '../home_page.dart';
 
 class confirem_pass extends StatefulWidget {
@@ -14,7 +12,8 @@ class confirem_pass extends StatefulWidget {
 class _confirem_passState extends State<confirem_pass> {
   TextEditingController pass1_controller;
   TextEditingController pass2_controller;
-  bool ishiden = false;
+  bool ishiden1 = false;
+  bool ishiden2 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +45,7 @@ class _confirem_passState extends State<confirem_pass> {
               child: TextFormField(
                 textAlign: TextAlign.right,
                 controller: pass1_controller,
-                obscureText: ishiden,
+                obscureText: ishiden1,
                 decoration: InputDecoration(
                     hintText: "أدخل الرقم السرى الجديد",
                     suffixIcon: Icon(
@@ -56,11 +55,11 @@ class _confirem_passState extends State<confirem_pass> {
                     prefixIcon: IconButton(
                       onPressed: () {
                         setState(() {
-                          ishiden = !ishiden;
+                          ishiden1 = !ishiden1;
                         });
                       },
                       icon: Icon(
-                        ishiden ? Icons.visibility_off : Icons.visibility,
+                        ishiden1 ? Icons.visibility_off : Icons.visibility,
                         color: Colors.white,
                       ),
                     ),
@@ -77,7 +76,7 @@ class _confirem_passState extends State<confirem_pass> {
               child: TextFormField(
                 textAlign: TextAlign.right,
                 controller: pass2_controller,
-                obscureText: ishiden,
+                obscureText: ishiden2,
                 decoration: InputDecoration(
                     hintText: "تأكيد كلمة السر",
                     suffixIcon: Icon(
@@ -87,11 +86,11 @@ class _confirem_passState extends State<confirem_pass> {
                     prefixIcon: IconButton(
                       onPressed: () {
                         setState(() {
-                          ishiden = !ishiden;
+                          ishiden2 = !ishiden2;
                         });
                       },
                       icon: Icon(
-                        ishiden ? Icons.visibility_off : Icons.visibility,
+                        ishiden2 ? Icons.visibility_off : Icons.visibility,
                         color: Colors.white,
                       ),
                     ),
